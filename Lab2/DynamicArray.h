@@ -89,8 +89,9 @@ class DynamicArray final
 
 		~DynamicArray()
 		{
-			for (size_t i = 0; i < mSize; i++) { data[i].~T(); }
-				free(data);
+			for (size_t i = 0; i < mSize; i++)
+				data[i].~T();
+			free(data);
 		};
 
 		int insert(const T& value)
