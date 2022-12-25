@@ -29,9 +29,9 @@ class DynamicArray final
 				void next()
 				{
 					if (isReverced) 
-						current -= 1;
+						current--;
 					else			
-						current += 1;
+						current++;
 				}
 
 				bool hasNext() const
@@ -115,7 +115,7 @@ class DynamicArray final
 
 			mSize++;
 
-			for (size_t i = mSize - 1; i > index; --i)
+			for (size_t i = mSize - 1; i > index; i--)
 			{
 				new (data + i) T(std::move(data[i - 1]));
 				data[i - 1].~T();
@@ -132,7 +132,7 @@ class DynamicArray final
 
 			data[index].~T();
 
-			for (size_t i = index; i < mSize - 1; ++i)
+			for (size_t i = index; i < mSize - 1; i++)
 			{
 				data[i].~T();
 				new (data + i) T(std::move(data[i + 1]));
@@ -213,10 +213,10 @@ class DynamicArray final
 			capacity *= kExpandFactor;
 			T* newData = (T*)malloc(capacity * sizeof(T));
 
-			for (size_t i = 0; i < mSize; ++i)
+			for (size_t i = 0; i < mSize; i++)
 				new (newData + i) T(std::move(data[i]));
 
-			for (size_t i = 0; i < mSize; ++i)
+			for (size_t i = 0; i < mSize; i++)
 				data[i].~T();
 
 			free(data);
